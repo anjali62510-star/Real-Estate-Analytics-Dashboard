@@ -15,7 +15,7 @@ from folium.plugins import MarkerCluster, HeatMap
 from streamlit_folium import st_folium
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
-from streamlit.components.v1 import html
+# from streamlit.components.v1 import html  # Deprecated, use st.iframe instead
 from streamlit_option_menu import option_menu
 from streamlit_extras.metric_cards import style_metric_cards
 import requests
@@ -165,7 +165,7 @@ h1, h2, h3 {
 
 GA_ID = "G-8JJ3T5FVXN"
 
-html(f"""
+st.iframe(f"""
 <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
 
 <script>
@@ -234,7 +234,7 @@ if username == "admin" and password == "admin123":
     if uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
     else:
-        df = pd.read_csv("data/kc_house_data.csv")
+        df = pd.read_csv("../data/kc_house_data.csv")
         
     st.sidebar.write("### Dataset Information")
     st.sidebar.write(f"Rows: {df.shape[0]}")
@@ -336,21 +336,21 @@ if username == "admin" and password == "admin123":
         return score
 
     def create_pdf():
-
-        doc = SimpleDocTemplate("report.pdf")
-
-        styles = getSampleStyleSheet()
-
-        elements = []
-
-        elements.append(
-            Paragraph(
-                "Real Estate Analytics Report",
-                styles['Title']
+        try:
+            doc = SimpleDocTemplate("report.pdf")
+            styles = getSampleStyleSheet()
+            elements = []
+            elements.append(
+                Paragraph(
+                    "Real Estate Analytics Report",
+                    styles['Title']
+                )
             )
-        )
-
-        doc.build(elements)
+            doc.build(elements)
+            return True
+        except Exception as e:
+            st.error(f"Error creating PDF: {e}")
+            return False
 
     def recommend_houses(price, bedrooms):
 

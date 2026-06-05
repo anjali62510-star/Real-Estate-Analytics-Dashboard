@@ -8,3 +8,8 @@ plotly
 xgboost
 shap
 folium
+bcrypt
+streamlit-folium
+streamlit-option-menu
+streamlit-extras
+reportlab
