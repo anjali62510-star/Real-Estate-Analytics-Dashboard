@@ -174,5 +174,5 @@ Add screenshots of:
 
 **Anjali Rajput**
 
-Passionate about Data Analytics, Machine Learning, and Full-Stack Development.
+Passionate about Data Analytics, Machine Learning and Full-Stack Development.
 
